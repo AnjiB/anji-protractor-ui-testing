@@ -1,6 +1,6 @@
 'use strict';
 
-var pplRadio, planetRadio, queryInputBox, searchButton, listOfPeople, listOfPlanets, notFoundMessage;
+let pplRadio, planetRadio, queryInputBox, searchButton, listOfPeople, listOfPlanets, notFoundMessage, pageHeader;
 
 module.exports = {
   init: () => {
@@ -11,6 +11,7 @@ module.exports = {
     listOfPeople = element.all(by.css('app-character .card'));
     listOfPlanets = element.all(by.css('app-planet .card'));
     notFoundMessage = element(by.xpath('(//div[@class="col"] //div[@_ngcontent-c0])[1]'));
+    pageHeader = element(by.xpath('//div[@class="col"]//h1'));
   },
   setQuery: (query) => {
     return queryInputBox.sendKeys(query);
@@ -54,5 +55,9 @@ module.exports = {
 
   getNotFoundElementMessage: () => {
      return notFoundMessage.getText();
-  }
+  },
+
+  getPageHeader: () => {
+    return pageHeader.getText();
+ }
 }

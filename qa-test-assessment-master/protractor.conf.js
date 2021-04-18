@@ -35,12 +35,6 @@ exports.config = {
     require('ts-node').register({
       project: require('path').join(__dirname, './e2e/tsconfig.e2e.json')
     });
-
-    const {Given, Then, When, Before} = require('cucumber');
-    global.Given = Given;
-    global.When = When;
-    global.Then = Then;
-    global.Before = Before;
   }
   
 };
