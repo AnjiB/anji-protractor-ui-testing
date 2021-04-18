@@ -10,19 +10,19 @@ module.exports = {
     gravity = planetParentRootElement.element(by.css('.card-body div:nth-of-type(3) div:nth-of-type(2)'));
   },
   
-  getName: () => {
-    return planetName.getText();
+  getName: async() => {
+    return await planetName.getText();
   },
 
-  getPopulation: () => {
-    return population.getText();
+  getPopulation: async() => {
+    return await population.getText();
   },
 
-  getClimate: () => {
-    return climate.getText();
+  getClimate: async() => {
+    return await climate.getText();
   },
 
-  getGravity: () => {
-    return gravity.getText();
+  getGravity: async() => {
+    return await gravity.getText();
   }
 }

@@ -11,23 +11,23 @@ module.exports = {
     skinColor = personCardRootElement.element(by.css('.card-body div:nth-of-type(4) div:nth-of-type(2)'));
   },
   
-  getPersonName: () => {
-    return personName.getText();
+  getPersonName: async() => {
+    return await personName.getText();
   },
 
-  getGender: () => {
-    return gender.getText();
+  getGender: async() => {
+    return await gender.getText();
   },
 
-  getBirthYear: () => {
-    return birthYear.getText();
+  getBirthYear: async() => {
+    return await birthYear.getText();
   },
 
-  getEyeColor: () => {
+  getEyeColor: async() => {
     return eyeColor.getText();
   },
 
-  getSkinColor: () => {
-    return skinColor.getText();
+  getSkinColor: async() => {
+    return await skinColor.getText();
   }
 }

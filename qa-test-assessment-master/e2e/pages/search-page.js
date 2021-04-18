@@ -29,35 +29,35 @@ module.exports = {
     return searchButton.click();
   },
 
-  getPeopleCount: () => {
-    return listOfPeople.count();
+  getPeopleCount: async() => {
+    return await listOfPeople.count();
   },
 
-  getPlanetCount: () => {
-    return listOfPlanets.count();
+  getPlanetCount: async() => {
+    return await listOfPlanets.count();
   },
 
-  getPlanetElementByIndex: (index) => {
-    return listOfPlanets.get(index);
+  getPlanetElementByIndex: async(index) => {
+    return await listOfPlanets.get(index);
   },
 
-  getPersonElementByIndex: (index) => {
-    return listOfPeople.get(index);
+  getPersonElementByIndex: async(index) => {
+    return await listOfPeople.get(index);
   },
 
-  getPeople: () => {
-    return listOfPeople;
+  getPeople: async() => {
+    return await listOfPeople;
   },
 
-  getPlanet: () => {
-    return listOfPlanets;
+  getPlanet: async() => {
+    return await listOfPlanets;
   },
 
-  getNotFoundElementMessage: () => {
-     return notFoundMessage.getText();
+  getNotFoundElementMessage: async() => {
+     return await notFoundMessage.getText();
   },
 
-  getPageHeader: () => {
-    return pageHeader.getText();
+  getPageHeader: async() => {
+    return await pageHeader.getText();
  }
 }
