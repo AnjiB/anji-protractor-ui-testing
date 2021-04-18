@@ -13,6 +13,15 @@ module.exports = {
     notFoundMessage = element(by.xpath('(//div[@class="col"] //div[@_ngcontent-c0])[1]'));
     pageHeader = element(by.xpath('//div[@class="col"]//h1'));
   },
+
+  queryInputBox: () => {
+    return queryInputBox;
+  },
+
+  getQueryInput: async() => {
+    return await queryInputBox.getAttribute('value');
+  },
+
   setQuery: (query) => {
     return queryInputBox.sendKeys(query);
   },

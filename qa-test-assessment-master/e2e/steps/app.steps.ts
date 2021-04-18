@@ -1,10 +1,11 @@
-import { Before, Then } from "cucumber";
+import { Before, Then, When } from "cucumber";
+
 
 const searchPage = require('../pages/search-page.js');
 const planetCardPage = require('../pages/planet-card.js');
 const personCardPage = require('../pages/person-card.js');
 const { Given } = require('cucumber');
-const { browser, by } = require('protractor');
+const { browser, by, ExpectedConditions} = require('protractor');
 const chai = require('chai');
 chai.use(require('chai-as-promised'));
 
@@ -19,25 +20,43 @@ Given('The app is open on {string}', { timeout: 25 * 1000 }, async (string) => {
     await chai.expect(browser.element(by.id('query')).isDisplayed()).to.eventually.be.true;
 });
 
-Given('User search for person {string}', { timeout: 25 * 1000 }, async (personName) => {
+When('User search for person {string}', { timeout: 25 * 1000 }, async (personName) => {
     await searchPage.selectPerson();
     await searchPage.setQuery(personName);
     await searchPage.clickOnSearch();
     await browser.sleep(2000);
 });
 
-Given('User search for planet {string}', { timeout: 25 * 1000 }, async (planetName) => {
+When('User search for planet {string}', { timeout: 25 * 1000 }, async (planetName) => {
     await searchPage.selectPlanet();
     await searchPage.setQuery(planetName);
     await searchPage.clickOnSearch();
     await browser.sleep(2000);
 });
 
-Then('Page shold have valid header', { timeout: 25 * 1000 }, async () => {
+When('url appended with search type {string} and query {string} and search', { timeout: 25 * 1000 }, async (type, query) => {
+    let url = await browser.getCurrentUrl() + '?searchType=' + type + '&query=' + query;
+    console.log("URL with query string: " + url);
+    browser.navigate().to(url);
+    await chai.expect(searchPage.queryInputBox().isDisplayed()).to.eventually.be.true;
+    if(type === 'people') {
+        await chai.expect(searchPage.selectPerson().isSelected()).to.eventually.be.true;
+    } else {
+        await chai.expect(searchPage.selectPlanet().isSelected()).to.eventually.be.true;
+    }
+    await browser.sleep(5000);
+    console.log("Text is: " + await searchPage.getQueryInput());
+    await chai.expect(searchPage.getQueryInput()).to.eventually.equal(query);
+    await searchPage.clickOnSearch();
+});
+
+Then('Page should have valid header', { timeout: 25 * 1000 }, async () => {
     await chai.expect(searchPage.getPageHeader()).to.eventually.equal('The Star Wars Search');
 });
 
 Then('User gets message {string}', { timeout: 25 * 1000 }, async (notFoundMessage) => {
+   // browser.wait(ExpectedConditions.textToBePresentInElement(browser.element(by.xpath('(//div[@class="col"] //div[@_ngcontent-c0])[1]')), "Not found."), 
+   //     100, "Text is not something I've expected");
     await chai.expect(searchPage.getNotFoundElementMessage()).to.eventually.equal(notFoundMessage);
 });
 
