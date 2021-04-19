@@ -1,7 +1,7 @@
 Feature: Planet Search Feature with Valid Values
         
     Scenario Outline: Open the browser and search for valid planet and validate the output
-        Given The app is open on "localhost"
+        Given The app is open
         When User search for planet "Alderaan"
         Then User gets planet count 1
         And The Planet at <Index> name should be "<PlanetName>"

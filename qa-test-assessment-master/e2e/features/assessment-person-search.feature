@@ -1,6 +1,6 @@
 Feature: Person Search Feature with Valid Values
        Scenario Outline: Open the browser and search for valid person and validate the output
-        Given The app is open on "localhost"
+        Given The app is open
         When User search for person "r2"
         Then User gets person count 1
         And The Person at <Index> name should be "<PersonName>"
@@ -13,7 +13,7 @@ Feature: Person Search Feature with Valid Values
       | 0   | R2-D2      | n/a    | 33BBY       | red          |  white, blue |
 
       Scenario Outline: Open the browser and search for valid person with multiple results and validate the output
-        Given The app is open on "localhost"
+        Given The app is open
         When User search for person "Darth"
         Then User gets person count 2
         And The Person at <Index> name should be "<PersonName>"
@@ -25,3 +25,10 @@ Feature: Person Search Feature with Valid Values
       |Index| PersonName | Gender | Birth Year  | Eye Color    | Skin Color|
       | 0   | Darth Vader| male   | 41.9BBY     | yellow       | white     |
       | 1   | Darth Maul | male   | 54BBY       | yellow       | red       |
+
+   Scenario: Search after clearing the input
+        Given The app is open
+        When User search for person "r2"
+        Then User gets person count 1
+        When User clears search and search with empty input
+        Then User gets person count 0

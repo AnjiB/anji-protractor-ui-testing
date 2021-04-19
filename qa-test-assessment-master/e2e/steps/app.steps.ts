@@ -1,11 +1,11 @@
-import { Before, Then, When } from "cucumber";
+//import { After, Before, Then, When} from "cucumber";
 
 
 const searchPage = require('../pages/search-page.js');
 const planetCardPage = require('../pages/planet-card.js');
 const personCardPage = require('../pages/person-card.js');
-const { Given } = require('cucumber');
-const { browser, by, ExpectedConditions} = require('protractor');
+const { Given, After, Before, Then, When} = require('cucumber');
+const { browser, by} = require('protractor');
 const chai = require('chai');
 chai.use(require('chai-as-promised'));
 
@@ -13,9 +13,9 @@ Before(function(){
     searchPage.init();
 })
 
-
-Given('The app is open on {string}', { timeout: 25 * 1000 }, async (string) => {
-    await browser.get('http://' + string + ':4200/');
+Given('The app is open', { timeout: 25 * 1000 }, async () => {
+    console.log('Browser URL', browser.baseUrl);
+    await browser.get(browser.baseUrl);
     await browser.sleep(2000);
     await chai.expect(browser.element(by.id('query')).isDisplayed()).to.eventually.be.true;
 });
@@ -50,13 +50,16 @@ When('url appended with search type {string} and query {string} and search', { t
     await searchPage.clickOnSearch();
 });
 
+When('User clears search and search with empty input' , { timeout: 25 * 1000 }, async () => {
+    await searchPage.queryInputBox().clear();
+    await chai.expect(searchPage.getQueryInput()).to.eventually.equal('');
+});
+
 Then('Page should have valid header', { timeout: 25 * 1000 }, async () => {
     await chai.expect(searchPage.getPageHeader()).to.eventually.equal('The Star Wars Search');
 });
 
 Then('User gets message {string}', { timeout: 25 * 1000 }, async (notFoundMessage) => {
-   // browser.wait(ExpectedConditions.textToBePresentInElement(browser.element(by.xpath('(//div[@class="col"] //div[@_ngcontent-c0])[1]')), "Not found."), 
-   //     100, "Text is not something I've expected");
     await chai.expect(searchPage.getNotFoundElementMessage()).to.eventually.equal(notFoundMessage);
 });
 
@@ -112,4 +115,22 @@ Then('The Eye color should be {string}', { timeout: 25 * 1000 }, async (iColor) 
 
 Then('The Skin color should be {string}', { timeout: 25 * 1000 }, async (skinClor) => {
     await chai.expect(personCardPage.getSkinColor()).to.eventually.equal(skinClor);
+});
+
+After(function(scenario,done)
+{
+    const postProcess = this;
+    if (scenario.result.status === 'passed')
+        console.log('passed scenario: ', scenario.pickle.name)
+    if (scenario.result.status === 'failed') {
+        console.log('failed scenario: ', scenario.pickle.name);
+        browser.takeScreenshot().then(function (stream) {
+            let decodedImage = new Buffer(stream.replace(/^data:image\/(png|gif|jpeg);base64,/, ''), 'base64');
+            postProcess.attach(decodedImage, 'image/png');
+        }).then(function () {
+            done();
+        });
+    } else {
+        done();
+    }
 });
