@@ -19,7 +19,7 @@
 * Framework is implemented using Page Object Model
 
 ## How to run tests
-* clone the [repository](https://github.com/AnjiB/anji-protra-assignment)
+* Clone the [repository](https://github.com/AnjiB/anji-protra-assignment)
 * Go to the folder qa-test-assessment-master
 * Being in root folder, run the command `npm install` [It downloads all the dependencies into node_modules folder]
 * run the command `ng serve` to start the application. Please check if application is running on port 4200 or 
@@ -105,10 +105,6 @@ However you can still run the tests using `protractor protractor.conf.js` comman
 }
 ]
 }``` for positive response.
-
-Use this file to document your solution and findings.
-
-Name: your name and optionally contact information
 
 ## Fidings
 * There are two functional issues I found.
