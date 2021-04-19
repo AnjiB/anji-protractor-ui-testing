@@ -4,7 +4,6 @@
 /dist
 /.vscode
 /dist-server
-/tmp
 /out-tsc
 
 # dependencies
