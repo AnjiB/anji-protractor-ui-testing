@@ -19,15 +19,7 @@ exports.config = {
     require: [
       './e2e/steps/*.steps.ts'
     ],
-    format: "json:tmp/results.json",
-    plugins: [
-      {
-        package: "protractor-simple-cucumber-html-reporter-plugin",
-        options: {
-          // read the options part
-        }
-      }
-    ]
+    format: "json:tmp/results.json"
   },
   onPrepare() {
     browser.driver.manage().window().maximize();

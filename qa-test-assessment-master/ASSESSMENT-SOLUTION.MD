@@ -17,6 +17,9 @@
 ## Introduction to Framework
 * Framework follows modular approach
 * Framework is implemented using Page Object Model
+* Framework captures screenshots on failure
+* Framework generates a nice HTML report and contains all the information related to test run. This report also contains screenshots of
+failures.
 
 ## How to run tests
 * Clone the [repository](https://github.com/AnjiB/anji-protra-assignment)
@@ -24,18 +27,17 @@
 * Being in root folder, run the command `npm install` [It downloads all the dependencies into node_modules folder]
 * run the command `ng serve` to start the application. Please check if application is running on port 4200 or 
 launch http://localhost:4200/
-* Open another terminal and go to the folder qa-test-assessment-master
-* To trigger the tests, being in root of the test project qa-test-assessment-master, run the command `protractor protractor.conf.js`
-* If you see any issue related to chrome driver, please update webdriver manager in node_modules with command 
-`node_modules/protractor/bin/webdriver-manager update`
+* Open another terminal and go to the folder `qa-test-assessment-master`
+* To trigger the tests, being in root of the test project `qa-test-assessment-master`, run the command `protractor protractor.conf.js`
+* If you see any issue related to driver, please update webdriver manager using `webdriver-manager update`
 
 ## Problems
-* I am not able to run the tests using ng e2e command. I am getting some weird errors but I believe they are related environment setup.
+* I am not able to run the tests using ng e2e angular lifecyele command. I am getting some weird errors but I believe they are related environment setup.
 However you can still run the tests using `protractor protractor.conf.js` command
 
 ## Reporting
-* Once the test run is complete, and HTML report is generated (I am attaching this to an email as well ) and browser opens the reports automatically
-* Report contains screenshots of failures
+* Once the test run is complete, and HTML report will be generated and opened automatically in the browser (I am attaching this to an email as well )
+* Report contains screenshots of the failures
 
 ## Test Coverage (#Test-Coverage)
 * Functional Tests (please read feature files for the scnearios)
@@ -107,12 +109,17 @@ However you can still run the tests using `protractor protractor.conf.js` comman
 }``` for positive response.
 
 ## Fidings
-* There are two functional issues I found.
+* There are four functional issues I found.
     1. There is no validation in the applicaton if user launches the page with invalid Type. 
     For ex: http://localhost:4200/?searchType=plates&query=Alderaan
     Api is returning Page Not Found 404 error which is wrong and UI says `Loading...` all the time
+    Note: A test is failing due to the same issue.
     2. When user searches for something & gets positive response, and clearing search box and searchig again resulting the same.
-    Ideally it should refresh the browser with `query=`(empty query)
+    Ideally it should refresh the browser with `query=`(empty query). Basically, when input query is empty, search is not making 
+    any calls.
+    Note: A test is failing due to the same issue.
+    3. No validation on input query min length
+    4. No validation on input query max length
 * Performance Using Lighthouse: Lighthouse reports lot of performance issues (I will attach screenshots in email) and suggesting lot of 
 improvements to work on.
 * Accessibilty: Axe is reporting 3 isues and one with level - Serious and that is `Elements must have sufficient color contrast`. Search button does not have proper color contrast

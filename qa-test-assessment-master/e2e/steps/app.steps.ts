@@ -1,6 +1,3 @@
-//import { After, Before, Then, When} from "cucumber";
-
-
 const searchPage = require('../pages/search-page.js');
 const planetCardPage = require('../pages/planet-card.js');
 const personCardPage = require('../pages/person-card.js');
