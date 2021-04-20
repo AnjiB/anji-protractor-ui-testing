@@ -124,6 +124,7 @@ However you can still run the tests using `protractor protractor.conf.js` comman
 improvements to work on.
 * Accessibilty: Axe is reporting 3 isues and one with level - Serious and that is `Elements must have sufficient color contrast`. Search button does not have proper color contrast
 * Responsiveness: Page is not broken or does not look ugly on smaller screens. Tested with mobile views as well.
+* Search with XSS strings like <script>alert('Hello')</script> is not executing the script, which is good.
 
 ## My Contact Details
 * Name: Anjaiah Boddupally
